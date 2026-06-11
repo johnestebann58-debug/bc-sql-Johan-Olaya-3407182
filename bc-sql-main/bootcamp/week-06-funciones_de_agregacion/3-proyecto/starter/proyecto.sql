@@ -3,51 +3,126 @@
 -- Semana 06 — COUNT, SUM, AVG, GROUP BY, HAVING
 -- ============================================
 
--- NOTA: Usa el esquema de tu Semana 03. Adapta nombres al dominio.
+-- TABLAS USADAS:
+-- clients, packages, sessions, deliveries
 
 -- ============================================
 -- REPORTE 1: Totales globales
 -- ============================================
--- TODO: Cuenta todos los registros y calcula suma/promedio
---       de la columna numérica más relevante de tu dominio
--- SELECT
---     COUNT(*)     AS total_registros,
---     SUM(col_num) AS suma_total,
---     AVG(col_num) AS promedio
--- FROM tu_tabla;
+-- Total de clientes, suma de precios de paquetes y promedio
+
+SELECT
+    COUNT(*) AS total_clients,
+    SUM(price) AS suma_total_paquetes,
+    AVG(price) AS promedio_precio_paquetes
+FROM packages;
 
 
 -- ============================================
 -- REPORTE 2: Extremos
 -- ============================================
--- TODO: Obtén el valor mínimo y máximo de la columna numérica
--- SELECT
---     MIN(col_num) AS minimo,
---     MAX(col_num) AS maximo
--- FROM tu_tabla;
+-- Precio mínimo y máximo de los paquetes
+
+SELECT
+    MIN(price) AS precio_minimo,
+    MAX(price) AS precio_maximo
+FROM packages;
 
 
 -- ============================================
 -- REPORTE 3: Subtotales por categoría (GROUP BY)
 -- ============================================
--- TODO: Agrupa por la columna de categoría/tipo principal de tu dominio
---       y calcula COUNT + AVG o SUM para cada grupo
--- SELECT
---     columna_categoria,
---     COUNT(*)     AS total,
---     AVG(col_num) AS promedio
--- FROM   tu_tabla
--- GROUP BY columna_categoria
--- ORDER BY total DESC;
+-- Cantidad de paquetes y promedio de precio por tipo
+
+SELECT
+    package_type,
+    COUNT(*) AS total_paquetes,
+    AVG(price) AS promedio_precio
+FROM packages
+GROUP BY package_type
+ORDER BY total_paquetes DESC;
 
 
 -- ============================================
--- REPORTE 4: Filtro de grupos (HAVING)
+-- REPORTE 4: GROUP BY con clientes por ciudad
 -- ============================================
--- TODO: Muestra solo los grupos que superen un umbral de negocio
--- SELECT
---     columna_categoria,
---     COUNT(*) AS total
--- FROM   tu_tabla
--- GROUP BY columna_categoria
--- HAVING COUNT(*) > umbral;
+
+SELECT
+    city,
+    COUNT(*) AS total_clientes
+FROM clients
+GROUP BY city
+ORDER BY total_clientes DESC;
+
+
+-- ============================================
+-- REPORTE 5: Sesiones por estado
+-- ============================================
+
+SELECT
+    status,
+    COUNT(*) AS total_sesiones
+FROM sessions
+GROUP BY status
+ORDER BY total_sesiones DESC;
+
+
+-- ============================================
+-- REPORTE 6: HAVING (filtro de grupos)
+-- ============================================
+-- Ciudades con más de 1 cliente
+
+SELECT
+    city,
+    COUNT(*) AS total_clientes
+FROM clients
+GROUP BY city
+HAVING COUNT(*) > 1;
+
+
+-- ============================================
+-- REPORTE 7: Paquetes más usados en sesiones
+-- ============================================
+
+SELECT
+    p.package_name,
+    COUNT(s.session_id) AS total_sesiones
+FROM sessions s
+INNER JOIN packages p ON s.package_id = p.package_id
+GROUP BY p.package_name
+ORDER BY total_sesiones DESC;
+
+
+-- ============================================
+-- REPORTE 8: Promedio de duración por tipo de paquete
+-- ============================================
+
+SELECT
+    package_type,
+    AVG(duration_hours) AS promedio_duracion
+FROM packages
+GROUP BY package_type;
+
+
+-- ============================================
+-- REPORTE 9: Entregas por estado
+-- ============================================
+
+SELECT
+    delivery_status,
+    COUNT(*) AS total_entregas
+FROM deliveries
+GROUP BY delivery_status;
+
+
+-- ============================================
+-- REPORTE 10: HAVING en sesiones
+-- ============================================
+-- Solo estados con más de 1 sesión
+
+SELECT
+    status,
+    COUNT(*) AS total
+FROM sessions
+GROUP BY status
+HAVING COUNT(*) > 1;

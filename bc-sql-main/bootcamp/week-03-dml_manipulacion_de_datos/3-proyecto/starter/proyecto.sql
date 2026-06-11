@@ -3,75 +3,131 @@
 -- Semana 03 — INSERT INTO, UPDATE, DELETE
 -- ============================================
 
--- NOTA PARA EL APRENDIZ:
--- Adapta este esquema a tu dominio asignado.
--- Ejemplos:
---   Biblioteca  → books, members, loans
---   Farmacia    → medicines, suppliers, sales
---   Gimnasio    → members, plans, attendance
---   Restaurante → dishes, tables, orders
-
--- Reutiliza el setup.sql de la Semana 02 o recrea las tablas aquí:
-
--- TODO: Pega o recrea tu esquema DDL de la Semana 02
---       (DROP TABLE IF EXISTS + CREATE TABLE)
-
-
 -- ============================================
 -- PARTE 1: INSERT INTO
 -- ============================================
 
--- TODO: Inserta al menos 5 filas en la tabla padre de tu dominio
-INSERT INTO items (id, name)   -- TODO: Renombrar y expandir columnas
+-- Agregar 5 nuevos clientes
+
+INSERT INTO clients (
+    client_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    city,
+    is_active
+)
 VALUES
-    -- (1, 'Ejemplo A'),
-    -- (2, 'Ejemplo B'),
-    -- (3, 'Ejemplo C'),
-    -- (4, 'Ejemplo D'),
-    -- (5, 'Ejemplo E');
-    ;
+(21,'Carlos','Ramirez','carlos.ramirez@email.com','3021000001','Bogotá',1),
+(22,'Laura','Moreno','laura.moreno@email.com','3021000002','Medellín',1),
+(23,'Andrés','Castro','andres.castro@email.com','3021000003','Cali',1),
+(24,'Valentina','Rojas','valentina.rojas@email.com','3021000004','Barranquilla',1),
+(25,'Santiago','Gómez','santiago.gomez@email.com','3021000005','Bucaramanga',1);
 
--- TODO: Inserta al menos 5 filas en la tabla hijo respetando FKs
--- INSERT INTO ...
+-- Agregar 5 nuevos paquetes
 
+INSERT INTO packages (
+    package_id,
+    package_name,
+    package_type,
+    price,
+    duration_hours,
+    is_available
+)
+VALUES
+(21,'Birthday Premium','Photography',750,4,1),
+(22,'Wedding Deluxe','Photography & Video',2500,12,1),
+(23,'Business Portrait','Photography',500,2,1),
+(24,'Drone Event','Video',1600,6,1),
+(25,'Influencer Pack','Photography & Video',1800,5,1);
 
 -- ============================================
 -- PARTE 2: UPDATE
 -- ============================================
 
--- TODO: Actualiza una columna de una fila específica (por PK)
--- UPDATE ...
--- SET    columna = nuevo_valor
--- WHERE  id = ?;
+-- Actualizar una columna
 
--- TODO: Actualiza múltiples columnas de una fila
--- UPDATE ...
--- SET    col1 = val1,
---        col2 = val2
--- WHERE  id = ?;
+UPDATE clients
+SET city = 'Cartagena'
+WHERE client_id = 21;
 
--- TODO: Actualiza múltiples filas con una condición de negocio
--- UPDATE ...
--- SET    columna = ...
--- WHERE  condicion = ?;
+-- Actualizar varias columnas
 
+UPDATE packages
+SET
+    price = 2900,
+    duration_hours = 14
+WHERE package_id = 22;
+
+-- Actualizar múltiples registros
+
+UPDATE deliveries
+SET delivery_status = 'Delivered'
+WHERE delivery_status = 'Pending';
 
 -- ============================================
--- PARTE 3: DELETE SEGURO
+-- PARTE 3: DELETE
 -- ============================================
 
--- TODO: Verifica con SELECT qué filas serán eliminadas
--- SELECT id, nombre FROM ... WHERE condicion;
+-- Verificar los registros
 
--- TODO: Elimina esas filas con el mismo WHERE
--- DELETE FROM ...
--- WHERE  condicion;
+SELECT 
+    client_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    city,
+    is_active
+FROM clients
+WHERE client_id IN (24,25);
 
+-- Eliminarlos
+
+DELETE FROM clients
+WHERE client_id IN (24,25);
 
 -- ============================================
 -- VERIFICACIÓN FINAL
 -- ============================================
 
--- TODO: Muestra el estado final de ambas tablas
--- SELECT * FROM tabla_padre ORDER BY id;
--- SELECT * FROM tabla_hijo  ORDER BY id;
+SELECT
+    client_id,
+    first_name,
+    last_name,
+    email,
+    phone_number,
+    city,
+    is_active
+FROM clients
+ORDER BY client_id;
+
+SELECT 
+    package_id,
+    package_name,
+    package_type,
+    price,
+    duration_hours,
+    is_available
+FROM packages
+ORDER BY package_id;
+
+SELECT 
+    session_id,
+    client_id,
+    package_id,
+    session_date,
+    location,
+    status
+FROM sessions
+ORDER BY session_id;
+
+SELECT 
+    delivery_id,
+    session_id,
+    delivery_date,
+    file_format,
+    delivery_status
+FROM deliveries
+ORDER BY delivery_id;

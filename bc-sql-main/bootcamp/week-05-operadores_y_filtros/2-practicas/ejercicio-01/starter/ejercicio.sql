@@ -10,9 +10,9 @@
 
 -- Empleados con salario entre 60000 y 75000 (ambos inclusive):
 
--- SELECT first_name, salary
--- FROM   employees
--- WHERE  salary BETWEEN 60000 AND 75000;
+SELECT first_name, salary
+FROM   employees
+WHERE  salary BETWEEN 60000 AND 75000;
 
 
 -- ============================================
@@ -20,10 +20,9 @@
 -- ============================================
 
 -- Empleados con salario fuera de ese rango:
-
--- SELECT first_name, salary
--- FROM   employees
--- WHERE  salary NOT BETWEEN 60000 AND 75000;
+SELECT first_name, salary
+FROM   employees
+WHERE  salary NOT BETWEEN 60000 AND 75000;
 
 
 -- ============================================
@@ -32,9 +31,9 @@
 
 -- Empleados de los departamentos 1 o 3:
 
--- SELECT first_name, department_id
--- FROM   employees
--- WHERE  department_id IN (1, 3);
+SELECT first_name, department_id
+FROM   employees
+WHERE  department_id IN (1, 3);
 
 
 -- ============================================
@@ -43,6 +42,6 @@
 
 -- Empleados que NO pertenecen al departamento 2:
 
--- SELECT first_name, department_id
--- FROM   employees
--- WHERE  department_id NOT IN (2);
+SELECT first_name, department_id
+FROM   employees
+WHERE  department_id NOT IN (2);

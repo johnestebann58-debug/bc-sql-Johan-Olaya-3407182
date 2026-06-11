@@ -3,64 +3,112 @@
 -- Semana 04 — SELECT, WHERE, ORDER BY, LIMIT/OFFSET
 -- ============================================
 
--- NOTA PARA EL APRENDIZ:
--- Usa el esquema y datos que cargaste en la Semana 03.
--- Adapta los nombres de tabla y columnas a tu dominio.
+-- ============================================
+-- CONSULTA 1: Listado general con alias
+-- ============================================
 
--- ============================================
--- CONSULTA 1: Listado general con columnas explícitas
--- ============================================
--- TODO: Lista al menos 4 columnas de tu entidad principal
---       usando alias en español para cada columna
--- SELECT
---     col1 AS alias1,
---     col2 AS alias2,
---     ...
--- FROM tu_tabla;
+SELECT
+    client_id      AS "ID Cliente",
+    first_name     AS "Nombre",
+    last_name      AS "Apellido",
+    city           AS "Ciudad",
+    email          AS "Correo Electrónico"
+FROM clients
+ORDER BY last_name ASC;
 
 
 -- ============================================
--- CONSULTA 2: Filtro por condición simple
+-- CONSULTA 2: Filtro por igualdad
 -- ============================================
--- TODO: Filtra filas usando una condición de igualdad o comparación
--- SELECT ...
--- FROM   tu_tabla
--- WHERE  columna = valor;
+
+SELECT
+    package_id     AS "ID Paquete",
+    package_name   AS "Nombre del Paquete",
+    package_type   AS "Tipo",
+    price          AS "Precio"
+FROM packages
+WHERE package_type = 'Photography';
 
 
 -- ============================================
--- CONSULTA 3: Filtro combinado (AND u OR)
+-- CONSULTA 3: Filtro por comparación
 -- ============================================
--- TODO: Combina al menos dos condiciones con AND u OR
--- SELECT ...
--- FROM   tu_tabla
--- WHERE  condicion1
---   AND  condicion2;
+
+SELECT
+    package_id      AS "ID",
+    package_name    AS "Paquete",
+    price           AS "Precio"
+FROM packages
+WHERE price > 1000
+ORDER BY price DESC;
 
 
 -- ============================================
--- CONSULTA 4: Top-N con ORDER BY + LIMIT
+-- CONSULTA 4: Filtro combinado (AND)
 -- ============================================
--- TODO: Recupera los 5 primeros registros según un criterio de negocio
--- SELECT ...
--- FROM   tu_tabla
--- ORDER BY columna DESC
--- LIMIT 5;
+
+SELECT
+    session_id      AS "Sesión",
+    client_id       AS "Cliente",
+    package_id      AS "Paquete",
+    session_date    AS "Fecha",
+    status          AS "Estado"
+FROM sessions
+WHERE status = 'Completed'
+AND package_id >= 10
+ORDER BY session_date DESC;
 
 
 -- ============================================
--- CONSULTA 5: Paginación (página 1 y página 2)
+-- CONSULTA 5: Uso de LIKE
 -- ============================================
--- TODO: Implementa 2 páginas de 3 registros cada una
---       ordenados por un criterio relevante para tu dominio
--- Página 1:
--- SELECT ...
--- FROM   tu_tabla
--- ORDER BY columna ASC
--- LIMIT  3 OFFSET 0;
 
--- Página 2:
--- SELECT ...
--- FROM   tu_tabla
--- ORDER BY columna ASC
--- LIMIT  3 OFFSET 3;
+SELECT
+    client_id       AS "ID",
+    first_name      AS "Nombre",
+    last_name       AS "Apellido",
+    city            AS "Ciudad"
+FROM clients
+WHERE city LIKE 'Bog%'
+ORDER BY first_name ASC;
+
+
+-- ============================================
+-- CONSULTA 6: Top 5 paquetes más costosos
+-- ============================================
+
+SELECT
+    package_id      AS "ID",
+    package_name    AS "Paquete",
+    price           AS "Precio"
+FROM packages
+ORDER BY price DESC
+LIMIT 5;
+
+
+-- ============================================
+-- CONSULTA 7: Paginación (Página 1)
+-- ============================================
+
+SELECT
+    client_id       AS "ID",
+    first_name      AS "Nombre",
+    last_name       AS "Apellido",
+    city            AS "Ciudad"
+FROM clients
+ORDER BY client_id ASC
+LIMIT 3 OFFSET 0;
+
+
+-- ============================================
+-- CONSULTA 8: Paginación (Página 2)
+-- ============================================
+
+SELECT
+    client_id       AS "ID",
+    first_name      AS "Nombre",
+    last_name       AS "Apellido",
+    city            AS "Ciudad"
+FROM clients
+ORDER BY client_id ASC
+LIMIT 3 OFFSET 3;

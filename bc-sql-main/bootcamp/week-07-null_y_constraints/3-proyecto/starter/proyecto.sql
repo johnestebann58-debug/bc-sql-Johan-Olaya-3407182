@@ -3,61 +3,76 @@
 -- Semana 07 — NOT NULL, UNIQUE, CHECK, FK
 -- ============================================
 
--- NOTA: Adapta nombres a tu dominio asignado.
-
--- Activar claves foráneas (obligatorio)
 PRAGMA foreign_keys = ON;
 
 -- ============================================
--- PARTE 1: ESQUEMA CON CONSTRAINTS
+-- PARTE 1: AMPLIAR EL ESQUEMA
 -- ============================================
 
--- TODO: Crear la tabla de categorías/grupos de tu dominio
---       Incluir: PK, NOT NULL, UNIQUE donde aplique
--- CREATE TABLE categories (
---     id   INTEGER PRIMARY KEY,
---     name TEXT    NOT NULL UNIQUE
---     -- TODO: agregar columnas de tu dominio
--- );
+-- Agregar una columna opcional para practicar NULL
 
--- TODO: Crear la tabla principal con todos los constraints
---       Incluir: PK, FK, NOT NULL, UNIQUE, CHECK, DEFAULT
--- CREATE TABLE items (
---     id          INTEGER PRIMARY KEY,
---     name        TEXT    NOT NULL,
---     -- TODO: columna con UNIQUE (código, matrícula, ISBN, etc.)
---     -- TODO: columna numérica con CHECK (precio > 0, edad > 0, etc.)
---     -- TODO: columna con DEFAULT (is_active, status, etc.)
---     category_id INTEGER NOT NULL
---         REFERENCES categories(id) ON DELETE RESTRICT
--- );
-
+ALTER TABLE sessions
+ADD COLUMN notes TEXT;
 
 -- ============================================
 -- PARTE 2: DATOS DE PRUEBA
 -- ============================================
 
--- TODO: Insertar 3 categorías
--- INSERT INTO categories (id, name) VALUES
---     (1, 'categoria_1'),
---     (2, 'categoria_2'),
---     (3, 'categoria_3');
+-- Agregar observaciones a algunas sesiones.
+-- Las demás permanecerán en NULL.
 
--- TODO: Insertar 6 items, al menos 2 con columna_opcional = NULL
--- INSERT INTO items (...) VALUES ...;
+UPDATE sessions
+SET notes = 'Cliente solicitó edición premium'
+WHERE session_id = 5;
 
+UPDATE sessions
+SET notes = 'Entregar antes del fin de semana'
+WHERE session_id = 12;
+
+UPDATE sessions
+SET notes = 'Incluir fotografías en blanco y negro'
+WHERE session_id = 18;
+
+UPDATE sessions
+SET notes = 'Sesión reprogramada por lluvia'
+WHERE session_id = 25;
+
+UPDATE sessions
+SET notes = 'Agregar versión para redes sociales'
+WHERE session_id = 40;
 
 -- ============================================
 -- PARTE 3: CONSULTAS CON NULL
 -- ============================================
 
--- TODO: Mostrar items donde columna_opcional IS NULL
--- SELECT id, name
--- FROM   items
--- WHERE  columna_opcional IS NULL;
+-- Mostrar sesiones donde notes es NULL
 
--- TODO: Mostrar todos los items usando COALESCE para reemplazar NULL
--- SELECT
---     name,
---     COALESCE(columna_opcional, 'Sin valor') AS col_display
--- FROM items;
+SELECT
+    session_id      AS "ID Sesión",
+    client_id       AS "Cliente",
+    location        AS "Ubicación",
+    notes           AS "Observaciones"
+FROM sessions
+WHERE notes IS NULL
+ORDER BY session_id;
+
+-- Mostrar todas las sesiones reemplazando NULL
+
+SELECT
+    session_id                         AS "ID Sesión",
+    location                           AS "Ubicación",
+    COALESCE(notes,'Sin observaciones') AS "Observaciones",
+    status                             AS "Estado"
+FROM sessions
+ORDER BY session_id;
+
+SELECT COUNT(*) AS total_sesiones
+FROM sessions;
+
+SELECT COUNT(*) FROM clients;
+
+SELECT COUNT(*) FROM packages;
+
+SELECT COUNT(*) FROM sessions;
+
+SELECT COUNT(*) FROM deliveries;

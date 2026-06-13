@@ -10,42 +10,42 @@
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT name, price
--- FROM   products;
+SELECT name, price
+FROM   products;
 
 -- ============================================
 -- PASO 3: Filtrar con WHERE (numérico)
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT name, price
--- FROM   products
--- WHERE  price <= 20;
+SELECT name, price
+FROM   products
+WHERE  price <= 20;
 
 -- ============================================
 -- PASO 4: Filtrar por texto con LIKE
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT name, price
--- FROM   products
--- WHERE  name LIKE 'S%';
+ SELECT name, price
+FROM   products
+WHERE  name LIKE 'S%';
 
 -- ============================================
 -- PASO 5: Ordenar con ORDER BY
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT name, price
--- FROM   products
--- ORDER BY price DESC;
+SELECT name, price
+FROM   products
+ORDER BY price DESC;
 
 -- ============================================
 -- PASO 6: Limitar resultados con LIMIT
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT name, price
--- FROM   products
--- ORDER BY price DESC
--- LIMIT  3;
+SELECT name, price
+FROM   products
+ORDER BY price DESC
+LIMIT  3;

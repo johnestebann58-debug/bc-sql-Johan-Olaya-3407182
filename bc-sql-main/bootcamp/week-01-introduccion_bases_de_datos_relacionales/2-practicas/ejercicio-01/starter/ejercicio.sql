@@ -10,28 +10,28 @@
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- .tables
+.tables
 
 -- ============================================
 -- PASO 3: Ver la estructura de una tabla
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- PRAGMA table_info(products);
--- PRAGMA table_info(categories);
+PRAGMA table_info(products);
+PRAGMA table_info(categories);
 
 -- ============================================
 -- PASO 4: Ver todos los registros de una tabla
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT id, name, price, category_id
--- FROM   products;
+SELECT id, name, price, category_id
+FROM   products;
 
 -- ============================================
 -- PASO 5: Contar registros
 -- ============================================
 
 -- Descomenta las siguientes líneas:
--- SELECT COUNT(*) AS total_products
--- FROM   products;
+SELECT COUNT(*) AS total_products
+FROM   products;

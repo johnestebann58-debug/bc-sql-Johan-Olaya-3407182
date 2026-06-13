@@ -10,27 +10,26 @@
 
 -- Actualiza el salario de Bob (id=2) a 70000.00:
 
--- UPDATE employees
--- SET    salary = 70000.00
--- WHERE  id = 2;
+UPDATE employees
+SET    salary = 70000.00
+WHERE  id = 2;
 
--- Verifica el cambio:
--- SELECT id, first_name, salary FROM employees WHERE id = 2;
+Verifica el cambio:
+SELECT id, first_name, salary FROM employees WHERE id = 2;
 
 
 -- ============================================
 -- PASO 2: Actualizar múltiples columnas
 -- ============================================
 
--- Actualiza el salario de Carol (id=3) a 62000.00
--- y corrige su apellido a 'Clark':
+Actualiza el salario de Carol (id=3) a 62000.00
+y corrige su apellido a 'Clark':
 
--- UPDATE employees
--- SET    salary    = 62000.00,
---        last_name = 'Clark'
--- WHERE  id = 3;
-
--- SELECT id, first_name, last_name, salary FROM employees WHERE id = 3;
+UPdATE employees
+SET    salary    = 62000.00,
+       last_name = 'Clark'
+WHERE  id = 3;
+SELECT id, first_name, last_name, salary FROM employees WHERE id = 3;
 
 
 -- ============================================
@@ -39,12 +38,12 @@
 
 -- Aplica un aumento del 10% a todos los empleados del departamento 1:
 
--- UPDATE employees
--- SET    salary = salary * 1.10
--- WHERE  department_id = 1;
+UPDATE employees
+SET    salary = salary * 1.10
+WHERE  department_id = 1;
 
--- SELECT id, first_name, salary, department_id FROM employees
--- WHERE  department_id = 1;
+SELECT id, first_name, salary, department_id FROM employees
+WHERE  department_id = 1;
 
 
 -- ============================================
@@ -52,11 +51,11 @@
 -- ============================================
 
 -- Primero verifica qué filas se borrarán:
--- SELECT id, first_name, email FROM employees WHERE department_id = 3;
+SELECT id, first_name, email FROM employees WHERE department_id = 3;
 
 -- Ahora ejecuta el DELETE con el mismo WHERE:
--- DELETE FROM employees
--- WHERE  department_id = 3;
+DELETE FROM employees
+WHERE  department_id = 3;
 
 
 -- ============================================
@@ -65,4 +64,4 @@
 
 -- Muestra todos los empleados restantes ordenados por id:
 
--- SELECT * FROM employees ORDER BY id;
+SELECT * FROM employees ORDER BY id;

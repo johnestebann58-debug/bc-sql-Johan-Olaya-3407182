@@ -1,5 +1,5 @@
 -- ============================================
--- Semana 04: SELECT — Ejercicio 02 — Setup
+-- Semana 04: SELECT — Ejercicio 02 — Setup sql
 -- ============================================
 
 DROP TABLE IF EXISTS employees;
@@ -31,3 +31,4 @@ INSERT INTO employees (id, first_name, last_name, email, salary, department_id) 
     (3, 'Carol', 'White',   'carol@company.com', 58000.00, 2),
     (4, 'Dan',   'Brown',   'dan@company.com',   81000.00, 3),
     (5, 'Eva',   'Green',   'eva@company.com',   69500.00, 2);
+
